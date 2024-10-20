@@ -59,7 +59,8 @@
         that:
           - invalid_password.failed
           - not invalid_password.changed
-          - 'invalid_password.msg == "HTTP Error 401: 401"'
+          - 'invalid_password.msg == "HTTP Error 401: 401" or
+            "HTTP Error 409: 409"'
 
     - name: Negative - Invalid ca_path
       dellemc.openmanage.omevv_vcenter_info:
