@@ -13,16 +13,6 @@
     is not defined
 
 - block:
-    - name: Including helper file for creating firmware repo profile
-      ansible.builtin.include_tasks: ../__pre_req_create.yml
-      vars:
-        profile_name: "temp_profile"
-        protocol: "HTTP"
-        share__username: "{{ http_share_user  }}"
-        share__password: "{{ http_share_password  }}"
-        path: "{{ http_share }}{{ http_share_dir_path }}"
-        state: present
-
     - name: Retrieve particular vcenter info (Check mode)
       dellemc.openmanage.omevv_vcenter_info: &retrieve_info
         hostname: "{{ hostname }}"
@@ -71,14 +61,6 @@
       ansible.builtin.assert:
         that:
           - info_result.vcenter_info == uri_resp_dict
-
-  always:
-    - name: Cleanup
-      dellemc.openmanage.omevv_firmware_repository_profile:
-        name: "temp_profile"
-        state: absent
-      ignore_errors: true
-      no_log: true
 
   module_defaults:
     dellemc.openmanage.omevv_vcenter_info:
