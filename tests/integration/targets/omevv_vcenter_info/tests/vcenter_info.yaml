@@ -23,7 +23,7 @@
         path: "{{ http_share }}{{ http_share_dir_path }}"
         state: present
 
-    - name: Retrieve all vcenter info (Check mode)
+    - name: Retrieve particular vcenter info (Check mode)
       dellemc.openmanage.omevv_vcenter_info: &retrieve_info
         hostname: "{{ hostname }}"
         username: "{{ ome_username }}"
@@ -32,19 +32,19 @@
       register: cm_changes
       check_mode: true
 
-    - name: Verify task status - Retrieve all vcenter info (Check mode)
+    - name: Verify task status - Retrieve particular vcenter info (Check mode)
       ansible.builtin.assert:
         that:
           - not cm_changes.changed
           - cm_changes.msg == 'Successfully retrieved the vCenter
            information.'
 
-    - name: Retrieve all vcenter info (Normal Mode)
+    - name: Retrieve particular vcenter info (Normal Mode)
       dellemc.openmanage.omevv_vcenter_info:
         <<: *retrieve_info
       register: info_result
 
-    - name: Verify task status - Retrieve all vcenter info (Normal Mode)
+    - name: Verify task status - Retrieve particular vcenter info (Normal Mode)
       ansible.builtin.assert:
         that:
           - not info_result.failed

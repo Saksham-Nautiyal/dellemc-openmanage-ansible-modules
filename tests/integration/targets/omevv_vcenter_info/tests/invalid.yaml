@@ -34,7 +34,6 @@
         hostname: "{{ hostname }}"
         username: invalid
         password: "{{ ome_password }}"
-
       ignore_errors: true
       register: invalid_user
 
